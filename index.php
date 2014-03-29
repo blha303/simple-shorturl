@@ -10,6 +10,9 @@ function randomString() {
 }
 
 if (isset($_GET['url'])) {
+  if (strpos($_GET['url'], ":")) {
+    $_GET['url'] = "http://" . $_GET['url'];
+  }
   $output = array();
   if( exec('grep '.escapeshellarg($_GET['url']).' ./list.txt', $output)) {
     $i = 0;
@@ -48,6 +51,6 @@ if (isset($_GET['url'])) {
   }
 } else { ?>
 <form method="GET" action="">
-<label for="url">URL:</label><input type="text" name="url" id="url" placeholder="http://"><input type="submit">
+<label for="url">URL:</label><input type="text" name="url" id="url" value="http://" placeholder="http://"><input type="submit">
 </form>
 <?php }
